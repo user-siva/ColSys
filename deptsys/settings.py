@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'apps.main'
 ]
 JAZZMIN_SETTINGS = {
-    "show_ui_builder": True
+    "show_ui_builder": True,
 }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

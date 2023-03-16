@@ -13,7 +13,7 @@
                 <label class="my-label pr-3" for="department">
                     <h5>Department</h5>
                 </label>
-                <select class="form-select bg-primary border-0 rounded text-white" name="department" id="department">
+                <select class="form-select rounded " name="department" id="department">
                     <option>CSE</option>
                     <option>ECE</option>
                     <option>EEE</option>
@@ -25,7 +25,12 @@
                 <label class="my-label pr-3" for="year">
                     <h5>Year</h5>
                 </label>
-                <input class="form-control" type="text" name="year" id="year">
+                <select class="form-select rounded " name="year" id="year">
+                    <option>First</option>
+                    <option>Second</option>
+                    <option>Third</option>
+                    <option>Fourth</option>
+                </select>
             </div>
             <div class="pl-5 pr-5 mt-3">
                 <button class="btn btn-primary btn-sm p-2" type="submit">Get Timetable</button>
@@ -34,11 +39,11 @@
     </div>
 
 
-    
+
     {% if values %}
     <div class="d-flex justify-content-center align-items-center text-center p-2">
         <h3 class="rounded text-center bg-light d-inline-block">
-            <b>Time Table For {{timetable.year_id}} {{timetable.department.name}}</b>
+            <b>Time Table For {{timetable.subject_name.year}} {{timetable.subject_name.department}}</b>
         </h3>
     </div>
     <div class="bg-light">
@@ -58,35 +63,35 @@
             </thead>
             <tbody>
                 <tr>
-                <td>Monday</td>
-                {% for data in monday %}
+                    <td>Monday</td>
+                    {% for data in monday %}
                     <td><a style="color:black" href="{{data.id}}/change">{{data.subject_name}}</a></td>
-                {% endfor %}
-            </tr>
-           <tr>
-                <td>Tuesday</td>
-                {% for data in tuesday %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Tuesday</td>
+                    {% for data in tuesday %}
                     <td><a style="color:black" href="{{data.id}}/change">{{data.subject_name}}</a></td>
-                {% endfor %}
-            </tr>                
-            <tr>
-                <td>Wednesday</td>
-                {% for data in wednesday %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    {% for data in wednesday %}
                     <td><a style="color:black" href="{{data.id}}/change">{{data.subject_name}}</a></td>
-                {% endfor %}
-            </tr>                
-            <tr>
-                <td>Thursday</td>
-                {% for data in thursday %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Thursday</td>
+                    {% for data in thursday %}
                     <td><a style="color:black" href="{{data.id}}/change">{{data.subject_name}}</a></td>
-                {% endfor %}
-            </tr>                
-            <tr>
-                <td>Friday</td>
-                {% for data in friday %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Friday</td>
+                    {% for data in friday %}
                     <td><a style="color:black" href="{{data.id}}/change">{{data.subject_name}}</a></td>
-                {% endfor %}
-            </tr>
+                    {% endfor %}
+                </tr>
             </tbody>
         </table>
     </div>
@@ -96,7 +101,7 @@
                 <thead>
                     <th>Subjects</th>
                     <th>Faculty</th>
-                    <th>Type</th>
+                    <th>Role</th>
                 </thead>
                 <tbody>
                     {% for i in sub %}
@@ -113,7 +118,7 @@
     </div>
     {% else %}
     <h3 class="ml-5">Select Department and Year</h3>
-    {% endif %}    
+    {% endif %}
 </div>
 </body>
 

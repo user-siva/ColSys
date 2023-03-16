@@ -111,7 +111,7 @@ class Staff(models.Model):
     Employee_Category = models.CharField(
         max_length=30, choices=employee_choice, null=True)
     name = models.CharField(max_length=200)
-
+    role = models.CharField(max_length=200, null=True)
     Father_name = models.CharField(max_length=50, null=True)
     Mother_name = models.CharField(max_length=50, null=True)
     phone = models.IntegerField(null=True)
