@@ -45,6 +45,8 @@ INSTALLED_APPS = [
 ]
 JAZZMIN_SETTINGS = {
     "show_ui_builder": True,
+    "site_header": "TEC",
+
 }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
