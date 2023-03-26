@@ -1,0 +1,106 @@
+{% extends "admin/change_list.html" %}
+
+{% block content_title %}
+<h1> Time Table </h1>
+{% endblock %}
+{% block result_list %}
+<div class="container">
+    <div class="nav d-flex">
+        <div class="dept d-flex p-2">
+            <h4 class="pr-3">Department:</h4>
+            <select>
+                <option>CSE</option>
+                <option>ECE</option>
+                <option>EEE</option>
+                <option>MECH</option>
+                <option>Civil</option>
+
+            </select>
+        </div>
+        <div class="year d-flex p-2">
+            <h4 class="pr-3">Year:</h4>
+            <select>
+                <option>First</option>
+                <option>Second</option>
+                <option>Third</option>
+                <option>Fourth</option>
+            </select>
+        </div>
+        <div class="sem d-flex p-2">
+            <h4 class="pr-3">Semester:</h4>
+            <select>
+                <option>Odd</option>
+                <option>Even</option>
+            </select>
+        </div>
+        <div class="sem d-flex p-2">
+            <h4 class="pr-3">Date:</h4>
+            <input type="date">
+        </div>
+    </div>
+    <div class="content mt-3">
+        <table class="table">
+            <thead>
+                <th>Name</th>
+                <th>Period 1</th>
+                <th>Period 2</th>
+                <th>Period 3</th>
+                <th>Period 4</th>
+                <th>Period 5</th>
+                <th>Period 6</th>
+                <th>Period 7</th>
+                <th>Period 8</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Me</td>
+                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
+                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
+                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
+                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
+                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
+                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
+                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
+                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
+                    <td><input type="checkbox" checked onchange="checking(this)">Presented <textarea id="msg"
+                            placeholder="reason" style="display:none"></textarea> </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    const table = document.querySelector('table');
+
+    const rows = table.querySelectorAll('tr');
+    rows.forEach((row, index) => {
+        const tds = row.querySelectorAll('td');
+
+        tds.forEach((td, indextd) => {
+            const name = `p${index}${indextd}`;
+
+
+
+            const radioButtons = td.querySelectorAll('input[type="radio"]');
+
+            radioButtons.forEach(radioButton => {
+                radioButton.name = name;
+            });
+        });
+    });
+
+    function checking(that) {
+        var textarea = document.getElementById("msg")
+        if (!that.checked) {
+            textarea.style.display = "block";
+        }
+        else {
+            textarea.style.display = "none";
+
+        }
+    }
+</script>
+
+{% endblock %}
