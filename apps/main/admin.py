@@ -65,9 +65,10 @@ class TimeTableAdmin(admin.ModelAdmin):
 
 
 class StudentAttendanceAdmin(admin.ModelAdmin):
-    change_list_template = 'admin/attend.html'
+    add_form_template = 'admin/attend.html'
+    list_filter = ['name__Department', 'name__year', 'date']
 
-    def changelist_view(self, request, extra_context=None):
+    def add_view(self, request, form_url='', extra_context=None):
         extra_context = extra_context or {}
         values = False
         if request.method == 'POST':
@@ -97,9 +98,9 @@ class StudentAttendanceAdmin(admin.ModelAdmin):
                 'values': values
             })
 
-            return super().changelist_view(request, extra_context=extra_context)
+            return self.changeform_view(request, None, form_url, extra_context)
         else:
-            return super().changelist_view(request, extra_context=extra_context)
+            return self.changeform_view(request, None, form_url, extra_context)
 
 
 admin.site.register(Student, StudentAdmin)

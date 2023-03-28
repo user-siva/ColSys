@@ -271,3 +271,6 @@ class StudentAttendance(models.Model):
     reason = models.CharField(max_length=500, null=True, blank=True)
     mark_attendance = models.CharField(
         max_length=100, choices=att_choice, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
