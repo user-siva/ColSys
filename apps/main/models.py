@@ -259,9 +259,7 @@ att_choice = [
 
 class StudentAttendance(models.Model):
     name = models.ForeignKey(Student, on_delete=models.CASCADE)
-    day = models.CharField(max_length=100, null=True, choices=day_choice)
     date = models.DateField()
-    time = models.TimeField()
     period_1 = models.CharField(max_length=100, choices=att_choice, null=True)
     period_2 = models.CharField(max_length=100, choices=att_choice, null=True)
     period_3 = models.CharField(max_length=100, choices=att_choice, null=True)
@@ -271,4 +269,5 @@ class StudentAttendance(models.Model):
     period_7 = models.CharField(max_length=100, choices=att_choice, null=True)
     period_8 = models.CharField(max_length=100, choices=att_choice, null=True)
     reason = models.CharField(max_length=500, null=True, blank=True)
-    mark_attendance = models.CharField(max_length=100, choices=att_choice)
+    mark_attendance = models.CharField(
+        max_length=100, choices=att_choice, blank=True, null=True)

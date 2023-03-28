@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.frontpage, name='frontpage'),
-    path('admin/main/timetable/',views.timetable)
+    path('api/attendSubmit', views.submitAttend)
 ]

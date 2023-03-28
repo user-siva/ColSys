@@ -1,9 +1,53 @@
 {% extends "admin/change_list.html" %}
 
 {% block content_title %}
-<h1> Time Table </h1>
+<h1> Attendance </h1>
 {% endblock %}
 {% block result_list %}
+<style>
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        font-family: "Open Sans", sans-serif;
+        padding: 0;
+        margin: 0;
+    }
+
+    #context-menu {
+        position: fixed;
+        z-index: 10000;
+        width: 150px;
+        background: #1b1a1a;
+        border-radius: 5px;
+    }
+
+    #context-menu .item {
+        padding: 8px 10px;
+        font-size: 15px;
+        color: #eee;
+        cursor: pointer;
+        border-radius: inherit;
+    }
+
+    #context-menu .item:hover {
+        background: #343434;
+    }
+
+    #context-menu {
+        position: fixed;
+        z-index: 10000;
+        width: 150px;
+        background: #1b1a1a;
+        border-radius: 5px;
+        display: none;
+    }
+
+    #context-menu.visible {
+        display: block;
+    }
+</style>
+
 <div class="container ml-0 mr-0">
     <div class="nav d-flex">
         <form method="post">
@@ -34,12 +78,16 @@
             </div>
         </form>
     </div>
-    <form method="post" action="att_submit">
-        {% csrf_token %}
+
+    <div class="content ml-0">
+        <div class="date d-flex p-2 pt-5 pb-5">
+            <h4 class=" pr-3">Choose Date</h4>
+            <input id="date" type="date" name="date">
+        </div>
         <div class="content ml-0">
-            <div class="date d-flex p-2 pt-5 pb-5">
-                <h4 class=" pr-3">Choose Date</h4>
-                <input type="date" name="date">
+            <div id="context-menu">
+                <div class="item">Ab</div>
+                <div class="item">Od</div>
             </div>
             <table class="table bg-light rounded w-auto">
                 <thead>
@@ -56,94 +104,94 @@
                 </thead>
                 <tbody>
                     {% for i in student %}
-                    <tr>
-                        <td><input type="text" value="{{i.name}}" style="border: none;width: 80px"></td>
+                    <tr class="trow">
+                        <td class="stuName">{{i.name}}</td>
                         <td>
                             <div class="d-flex">
                                 <div>
-                                    <input type="radio" class="pre text-primary" name="1_pre" checked> &#x2713;
+                                    <input type="radio" class="pre text-primary" checked> &#x2713;
                                 </div>
                                 <div>
-                                    <input class="abs" name="1_ab" type="radio"> ab
+                                    <input class="abs" type="radio"> ab
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="d-flex">
                                 <div>
-                                    <input type="radio" class="pre text-primary" name="2_pre" checked> &#x2713;
+                                    <input type="radio" class="pre text-primary" checked> &#x2713;
                                 </div>
                                 <div>
-                                    <input class="abs" type="radio" name="2_ab"> ab
+                                    <input class="abs" type="radio"> ab
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="d-flex">
                                 <div>
-                                    <input type="radio" class="pre text-primary" name="3_pre" checked> &#x2713;
+                                    <input type="radio" class="pre text-primary" checked> &#x2713;
                                 </div>
-                                <div><input class="abs" type="radio" name="3_ab"> ab
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex">
-                                <div>
-                                    <input type="radio" class="pre text-primary" name="4_pre" checked> &#x2713;
-                                </div>
-                                <div>
-                                    <input class="abs" type="radio" name="4_ab"> ab
+                                <div><input class="abs" type="radio"> ab
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="d-flex">
                                 <div>
-                                    <input type="radio" class="pre text-primary" name="5_pre" checked> &#x2713;
+                                    <input type="radio" class="pre text-primary" checked> &#x2713;
                                 </div>
-                                <div><input class="abs" type="radio" name="5_ab"> ab
+                                <div>
+                                    <input class="abs" type="radio"> ab
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="d-flex">
                                 <div>
-                                    <input type="radio" class="pre text-primary" name="6_pre" checked> &#x2713;
+                                    <input type="radio" class="pre text-primary" checked> &#x2713;
                                 </div>
-                                <div><input class="abs" type="radio" name="6_ab"> ab
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex">
-                                <div>
-                                    <input type="radio" class="pre text-primary" name="7_pre" checked> &#x2713;
-                                </div>
-                                <div><input class="abs" type="radio" name="7_ab"> ab
+                                <div><input class="abs" type="radio"> ab
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="d-flex">
                                 <div>
-                                    <input type="radio" class="pre text-primary" name="8_pre" checked> &#x2713;
+                                    <input type="radio" class="pre text-primary" checked> &#x2713;
                                 </div>
-                                <div><input class="abs" type="radio" name="8_ab"> ab
+                                <div><input class="abs" type="radio"> ab
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <div>
+                                    <input type="radio" class="pre text-primary" checked> &#x2713;
+                                </div>
+                                <div><input class="abs" type="radio"> ab
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <div>
+                                    <input type="radio" class="pre text-primary" checked> &#x2713;
+                                </div>
+                                <div><input class="abs" type="radio"> ab
                                 </div>
                             </div>
                         </td>
                         <td class="d-flex">
                             <div class="prechecking pr-2">
-                                <input type="radio" class="pao" name="o_pre" checked onchange="prechecking(this)">Pre
+                                <input type="radio" class="pao" checked onchange="prechecking(this)">Pre
                             </div>
                             <div class="abscheck pr-2">
-                                <input type="radio" name="o_abs" class="pao" onchange="abschecking(this)">Abs
+                                <input type="radio" class="pao" onchange="abschecking(this)">Abs
                             </div>
                             <div class="odcheck pr-2">
-                                <input type="radio" name="o_od" class="pao" onchange="odchecking(this)">Od
+                                <input type="radio" class="pao" onchange="odchecking(this)">Od
                             </div>
-                            <textarea style="display:none" name="reason" placeholder="Reason"></textarea>
+                            <textarea style="display:none" placeholder="Reason"></textarea>
 
                         </td>
 
@@ -153,124 +201,192 @@
                 </tbody>
             </table>
         </div>
-    </form>
-</div>
-</body>
-<script type="text/javascript">
+        <div class="ml-5">
+            <button class="btn btn-primary" onclick="attSubmit(event)">Save</button>
+        </div>
+    </div>
+    </body>
+    <script type="text/javascript">
 
-    // right click event 
+        // right click event 
 
-    const contextMenu = document.getElementById("context-menu");
-    const scopes = document.querySelectorAll(".abs");
+        const contextMenu = document.getElementById("context-menu");
+        const scopes = document.querySelectorAll(".abs");
 
-    scopes.forEach((scope) => {
-        scope.addEventListener("contextmenu", (event) => {
-            event.preventDefault();
-            var currentTarget = event.currentTarget;
+        scopes.forEach((scope) => {
+            scope.addEventListener("contextmenu", (event) => {
+                event.preventDefault();
+                var currentTarget = event.currentTarget;
 
-            const { clientX: mouseX, clientY: mouseY } = event;
+                const { clientX: mouseX, clientY: mouseY } = event;
 
-            contextMenu.style.top = `${mouseY}px`;
-            contextMenu.style.left = `${mouseX}px`;
+                contextMenu.style.top = `${mouseY}px`;
+                contextMenu.style.left = `${mouseX}px`;
 
-            contextMenu.classList.add("visible");
+                contextMenu.classList.add("visible");
 
-            var items = document.querySelectorAll(".item");
-            items[0].addEventListener('click', () => {
-                currentTarget.checked = true;
-                currentTarget.nextSibling.data = ' ab'
-            })
-            items[1].addEventListener('click', () => {
-                currentTarget.checked = true;
-                currentTarget.nextSibling.data = ' Od'
-            })
+                var items = document.querySelectorAll(".item");
+                items[0].addEventListener('click', () => {
+                    currentTarget.checked = true;
+                    currentTarget.nextSibling.data = ' ab'
+                })
+                items[1].addEventListener('click', () => {
+                    currentTarget.checked = true;
+                    currentTarget.nextSibling.data = ' Od'
+                })
 
-            var body = document.querySelector("body");
-            body.addEventListener('click', () => {
-                contextMenu.classList.remove("visible");
+                var body = document.querySelector("body");
+                body.addEventListener('click', () => {
+                    contextMenu.classList.remove("visible");
 
+                });
+            });
+        })
+
+        // Give name for all present Absent radio buttons  
+
+
+        const table = document.querySelector('table');
+
+        const rows = table.querySelectorAll('tr');
+        rows.forEach((row, index) => {
+            const tds = row.querySelectorAll('td');
+
+            tds.forEach((td, indextd) => {
+                const name = `p${index}${indextd}`;
+
+                const radioButtons = td.querySelectorAll('input[type="radio"]');
+
+                radioButtons.forEach(radioButton => {
+                    radioButton.name = name;
+                });
             });
         });
-    })
 
-    // Give name for all present Absent radio buttons  
+        // presentchecking
 
+        function prechecking(that) {
+            if (that.checked) {
+                var abs = that.parentNode.parentNode.parentNode.querySelectorAll('.abs');
+                var pres = that.parentNode.parentNode.parentNode.querySelectorAll('.pre');
+                var textarea = that.parentNode.parentNode.querySelector("textarea");
 
-    const table = document.querySelector('table');
-
-    const rows = table.querySelectorAll('tr');
-    rows.forEach((row, index) => {
-        const tds = row.querySelectorAll('td');
-
-        tds.forEach((td, indextd) => {
-            const name = `p${index}${indextd}`;
-
-            const radioButtons = td.querySelectorAll('input[type="radio"]');
-
-            radioButtons.forEach(radioButton => {
-                radioButton.name = name;
-            });
-        });
-    });
-
-    // presentchecking
-
-    function prechecking(that) {
-        if (that.checked) {
-            var abs = that.parentNode.parentNode.parentNode.querySelectorAll('.abs');
-            var pres = that.parentNode.parentNode.parentNode.querySelectorAll('.pre');
-            var textarea = that.parentNode.parentNode.querySelector("textarea");
-            pres.forEach((pre) => {
-                pre.setAttribute("checked", "checked");
-            })
-            abs.forEach((ab) => {
-                ab.removeAttribute("checked", "checked")
-            })
-            textarea.style.display = "none"
-        }
-
-    }
-    // Absentchecking
-    function abschecking(that) {
-        if (that.checked) {
-            var abs = that.parentNode.parentNode.parentNode.querySelectorAll('.abs');
-            var pres = that.parentNode.parentNode.parentNode.querySelectorAll('.pre');
-            var textarea = that.parentNode.parentNode.querySelector("textarea");
-            textarea.style.display = "block";
-            abs.forEach((ab) => {
-                ab.nextSibling.data = ' ab'
-                ab.setAttribute("checked", "checked")
-            })
-            pres.forEach((pre) => {
-                pre.removeAttribute("checked", "checked");
-            })
+                abs.forEach((ab) => {
+                    ab.removeAttribute("checked", "checked")
+                })
+                pres.forEach((pre) => {
+                    console.log(pre);
+                    pre.setAttribute("checked", "checked");
+                })
+                textarea.style.display = "none"
+            }
 
         }
-    }
-    // ODchecking
-    function odchecking(that) {
-        if (that.checked) {
-            var textarea = that.parentNode.parentNode.querySelector("textarea");
-            textarea.style.display = "block";
-            var abs = that.parentNode.parentNode.parentNode.querySelectorAll('.abs');
-            abs.forEach((ab) => {
-                ab.nextSibling.data = ' Od'
-            })
+        // Absentchecking
+        function abschecking(that) {
+            if (that.checked) {
+                var abs = that.parentNode.parentNode.parentNode.querySelectorAll('.abs');
+                var pres = that.parentNode.parentNode.parentNode.querySelectorAll('.pre');
+                var textarea = that.parentNode.parentNode.querySelector("textarea");
+                textarea.style.display = "block";
+                abs.forEach((ab) => {
+                    ab.nextSibling.data = ' ab'
+                    ab.setAttribute("checked", "checked")
+                })
+                pres.forEach((pre) => {
+                    pre.removeAttribute("checked", "checked");
+                })
+
+            }
         }
-    }
+        // ODchecking
+        function odchecking(that) {
+            if (that.checked) {
+                var textarea = that.parentNode.parentNode.querySelector("textarea");
+                textarea.style.display = "block";
+                var abs = that.parentNode.parentNode.parentNode.querySelectorAll('.abs');
+                var pres = that.parentNode.parentNode.parentNode.querySelectorAll('.pre');
+                abs.forEach((ab) => {
+                    ab.nextSibling.data = ' Od'
+                    ab.setAttribute("checked", "checked")
+                })
+                pres.forEach((pre) => {
+                    pre.removeAttribute("checked", "checked");
+                })
+            }
+        }
 
-    // checking present and absent and od and give the class name
+        // checking present and absent and od and give the class name
 
-    rows.forEach((row, i) => {
-        var pao = row.querySelectorAll(".pao");
-        let name = `pao${i}`
-        pao.name = name;
+        rows.forEach((row, i) => {
+            var pao = row.querySelectorAll(".pao");
+            let name = `pao${i}`
+            pao.name = name;
 
-    })
+        })
 
+        function attSubmit(event) {
+            event.preventDefault()
+            url = "/api/attendSubmit"
+            var trow = document.querySelectorAll('.trow')
+            var date = document.getElementById('date').value
+            var drow = []
+            trow.forEach((i, ind) => {
+                var name = i.querySelector(".stuName")
+                var pre = i.querySelectorAll('.pre')
+                var abs = i.querySelectorAll('.abs')
+                var reason = i.querySelector("textarea");
+                drow.push({ name: name.innerText })
+                pre.forEach((j, index) => {
+                    if (j.checked) {
+                        drow[ind][`period_${index + 1}`] = 'Present'
+                    }
+                })
+                abs.forEach((j, index) => {
 
+                    if (j.checked) {
+                        // console.log(j.nextSibling.innerText.includes('ab'));
+                        var text = j.nextSibling.data
+                        if (text.includes('ab')) {
+                            console.log("We won Saravana!")
+                            drow[ind][`period_${index + 1}`] = 'Absent'
+                        }
+                        else if (text.includes('Od')) {
+                            drow[ind][`period_${index + 1}`] = 'On Duty'
+                        }
+                    }
 
+                })
+                drow[ind]["Reason"] = reason.value
+            })
+            drow.push(date)
 
-</script>
+            drow.map((i) => {
+                console.log(i)
+            })
+            /*drow.map((i) => {
+                for(var j in i){
+                    console.log(i[j])
+                }
+                
+            })
+            */
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'applications/json',
+                    'X-CSRFToken': '{{csrf_token}}'
+                },
+                body: JSON.stringify(drow)
+            })
+                .then((response) => {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        }
 
-{% endblock %}
+    </script>
+
+    {% endblock %}
