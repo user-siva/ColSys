@@ -7,7 +7,7 @@
 {% block result_list %}
 <div class="container">
     <div class="forms d-flex flex-row">
-        <form method="post" action="" class="bg-light d-flex flex-row">
+        <form method="post" class="bg-light d-flex flex-row">
             {% csrf_token %}
             <div class="form-group d-flex pl-5 pr-5 mt-3 border-right border-3 border-secondary">
                 <label class="my-label pr-3" for="department">
@@ -62,36 +62,20 @@
                 </tr>
             </thead>
             <tbody>
+                {% for data in timetable %}
                 <tr>
-                    <td>Monday</td>
-                    {% for data in monday %}
-                    <td><a style="color:black" href="{{data.id}}/change">{{data.subject_name}}</a></td>
-                    {% endfor %}
+                    <td>{{data.day}}</td>
+                    <td><a href="{{data.id}}/change">{{data.period_1.subject_name}}</a></td>
+                    <td><a href="{{data.id}}/change">{{data.period_2.subject_name}}</a></td>
+                    <td><a href="{{data.id}}/change">{{data.period_3.subject_name}}</a></td>
+                    <td><a href="{{data.id}}/change">{{data.period_4.subject_name}}</a></td>
+                    <td><a href="{{data.id}}/change">{{data.period_5.subject_name}}</a></td>
+                    <td><a href="{{data.id}}/change">{{data.period_6.subject_name}}</a></td>
+                    <td><a href="{{data.id}}/change">{{data.period_7.subject_name}}</a></td>
+                    <td><a href="{{data.id}}/change">{{data.period_8.subject_name}}</a></td>
+
                 </tr>
-                <tr>
-                    <td>Tuesday</td>
-                    {% for data in tuesday %}
-                    <td><a style="color:black" href="{{data.id}}/change">{{data.subject_name}}</a></td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td>Wednesday</td>
-                    {% for data in wednesday %}
-                    <td><a style="color:black" href="{{data.id}}/change">{{data.subject_name}}</a></td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td>Thursday</td>
-                    {% for data in thursday %}
-                    <td><a style="color:black" href="{{data.id}}/change">{{data.subject_name}}</a></td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td>Friday</td>
-                    {% for data in friday %}
-                    <td><a style="color:black" href="{{data.id}}/change">{{data.subject_name}}</a></td>
-                    {% endfor %}
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -106,9 +90,9 @@
                 <tbody>
                     {% for i in sub %}
                     <tr>
-                        <td>{{i.subject_name}}</td>
+                        <td>{{i.name}}</td>
                         <td>{{i.staff.name}}</td>
-                        <td>{{i.staff.role}}</td>
+                        <td>AP/CSE</td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -1,6 +1,4 @@
 from django.db import models
-
-
 year_choices = [
     ('First', 'First'),
     ('Second', 'Second'),
@@ -176,22 +174,12 @@ sem_choices = [
     ('Second', 'Second'),
 ]
 
-
-class Subject(models.Model):
-    subject_code = models.CharField(max_length=100)
-    subject_name = models.CharField(max_length=500)
-    department = models.CharField(
-        max_length=200, default='CSE', choices=dept_choices)
-    year = models.CharField(
-        max_length=200, default='First', choices=year_choices)
-    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    regulation = models.CharField(
-        max_length=100, default='2017 regulation', choices=regulation_choices)
-    semester = models.CharField(
-        max_length=100, default='First', choices=sem_choices)
-
-    def __str__(self):
-        return self.subject_name
+year_choices = [
+    ('First', 'First'),
+    ('Second', 'Second'),
+    ('Third', 'Third'),
+    ('Fourth', 'Fourth'),
+]
 
 
 day_choice = [
@@ -215,14 +203,51 @@ period_choice = [
 ]
 
 
-class TimeTable(models.Model):
-    day = models.CharField(max_length=100, null=True, choices=day_choice)
-    period = models.CharField(max_length=50, null=True, choices=period_choice)
-    subject_name = models.ForeignKey(
-        Subject, null=True, related_name='subject', on_delete=models.CASCADE)
+class Subject(models.Model):
+    year_choices = [('First', 'First'), ('Second', 'Second'),
+                    ('Third', 'Third'), ('Fourth', 'Fourth')]
+    sem_choices = [('odd', 'Odd'), ('even', 'Even')]
+    subject_code = models.CharField(max_length=100, null=True)
+    subject_name = models.CharField(max_length=50, null=True)
+    regulation = models.CharField(
+        max_length=100, null=True, choices=regulation_choices)
+    department = models.CharField(
+        choices=dept_choices, max_length=100, null=True, default='CSE')
+    year = models.CharField(max_length=100, choices=year_choices)
+    semester = models.CharField(max_length=20, choices=sem_choices)
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE, default="")
 
     def __str__(self):
-        return self.day+' '+self.period+' '+' period'
+        return str(self.subject_name)
+
+
+class TimeTable(models.Model):
+    day = models.CharField(max_length=50, null=True, choices=day_choice)
+    regulation = models.CharField(
+        max_length=100, null=True, choices=regulation_choices)
+    department = models.CharField(
+        choices=dept_choices, max_length=100, null=True, default='CSE')
+    year = models.CharField(max_length=100, null=True, choices=year_choices)
+    semester = models.CharField(max_length=20, null=True, choices=sem_choices)
+    period_1 = models.ForeignKey(
+        Subject, on_delete=models.CASCADE, related_name='period_1', null=True)
+    period_2 = models.ForeignKey(
+        Subject, on_delete=models.CASCADE, related_name='period_2', null=True)
+    period_3 = models.ForeignKey(
+        Subject, on_delete=models.CASCADE, related_name='period_3', null=True)
+    period_4 = models.ForeignKey(
+        Subject, on_delete=models.CASCADE, related_name='period_4', null=True)
+    period_5 = models.ForeignKey(
+        Subject, on_delete=models.CASCADE, related_name='period_5', null=True)
+    period_6 = models.ForeignKey(
+        Subject, on_delete=models.CASCADE, related_name='period_6', null=True)
+    period_7 = models.ForeignKey(
+        Subject, on_delete=models.CASCADE, related_name='period_7', null=True)
+    period_8 = models.ForeignKey(
+        Subject, on_delete=models.CASCADE, related_name='period_8', null=True)
+
+    def __str__(self):
+        return f'{self.period_1.year} {self.period_1.department} {self.day}'
 
 
 att_choice = [

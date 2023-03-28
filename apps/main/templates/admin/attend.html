@@ -4,74 +4,198 @@
 <h1> Time Table </h1>
 {% endblock %}
 {% block result_list %}
-<div class="container">
+<div class="container ml-0 mr-0">
     <div class="nav d-flex">
-        <div class="dept d-flex p-2">
-            <h4 class="pr-3">Department:</h4>
-            <select>
-                <option>CSE</option>
-                <option>ECE</option>
-                <option>EEE</option>
-                <option>MECH</option>
-                <option>Civil</option>
+        <form method="post">
+            {% csrf_token %}
+            <div class="dept d-flex p-2 pt-5 pb-5">
+                <h4 class=" pr-3">Department</h4>
+                <select name="department">
+                    <option>CSE</option>
+                    <option>ECE</option>
+                    <option>EEE</option>
+                    <option>MECH</option>
+                    <option>Civil</option>
 
-            </select>
-        </div>
-        <div class="year d-flex p-2">
-            <h4 class="pr-3">Year:</h4>
-            <select>
-                <option>First</option>
-                <option>Second</option>
-                <option>Third</option>
-                <option>Fourth</option>
-            </select>
-        </div>
-        <div class="sem d-flex p-2">
-            <h4 class="pr-3">Semester:</h4>
-            <select>
-                <option>Odd</option>
-                <option>Even</option>
-            </select>
-        </div>
-        <div class="sem d-flex p-2">
-            <h4 class="pr-3">Date:</h4>
-            <input type="date">
-        </div>
+                </select>
+            </div>
+            <div class="year d-flex p-2  pt-5 pb-5">
+                <h4 class=" pr-3">Year</h4>
+                <select name="year">
+                    <option>First</option>
+                    <option>Second</option>
+                    <option>Third</option>
+                    <option>Fourth</option>
+                </select>
+            </div>
+
+            <div class="date d-flex p-2 pt-5 pb-5">
+                <button type="submit" class="btn btn-danger">Submit</button>
+            </div>
+        </form>
     </div>
-    <div class="content mt-3">
-        <table class="table">
-            <thead>
-                <th>Name</th>
-                <th>Period 1</th>
-                <th>Period 2</th>
-                <th>Period 3</th>
-                <th>Period 4</th>
-                <th>Period 5</th>
-                <th>Period 6</th>
-                <th>Period 7</th>
-                <th>Period 8</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Me</td>
-                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
-                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
-                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
-                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
-                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
-                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
-                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
-                    <td><input type="radio" class="text-primary" checked> &#x2713;<input type="radio"> &#10060;</td>
-                    <td><input type="checkbox" checked onchange="checking(this)">Presented <textarea id="msg"
-                            placeholder="reason" style="display:none"></textarea> </td>
+    <form method="post" action="att_submit">
+        {% csrf_token %}
+        <div class="content ml-0">
+            <div class="date d-flex p-2 pt-5 pb-5">
+                <h4 class=" pr-3">Choose Date</h4>
+                <input type="date" name="date">
+            </div>
+            <table class="table bg-light rounded w-auto">
+                <thead>
+                    <th>Name</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                    <th>Period 5</th>
+                    <th>Period 6</th>
+                    <th>Period 7</th>
+                    <th>Period 8</th>
+                    <th>Present/Abs/Od</th>
+                </thead>
+                <tbody>
+                    {% for i in student %}
+                    <tr>
+                        <td><input type="text" value="{{i.name}}" style="border: none;width: 80px"></td>
+                        <td>
+                            <div class="d-flex">
+                                <div>
+                                    <input type="radio" class="pre text-primary" name="1_pre" checked> &#x2713;
+                                </div>
+                                <div>
+                                    <input class="abs" name="1_ab" type="radio"> ab
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <div>
+                                    <input type="radio" class="pre text-primary" name="2_pre" checked> &#x2713;
+                                </div>
+                                <div>
+                                    <input class="abs" type="radio" name="2_ab"> ab
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <div>
+                                    <input type="radio" class="pre text-primary" name="3_pre" checked> &#x2713;
+                                </div>
+                                <div><input class="abs" type="radio" name="3_ab"> ab
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <div>
+                                    <input type="radio" class="pre text-primary" name="4_pre" checked> &#x2713;
+                                </div>
+                                <div>
+                                    <input class="abs" type="radio" name="4_ab"> ab
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <div>
+                                    <input type="radio" class="pre text-primary" name="5_pre" checked> &#x2713;
+                                </div>
+                                <div><input class="abs" type="radio" name="5_ab"> ab
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <div>
+                                    <input type="radio" class="pre text-primary" name="6_pre" checked> &#x2713;
+                                </div>
+                                <div><input class="abs" type="radio" name="6_ab"> ab
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <div>
+                                    <input type="radio" class="pre text-primary" name="7_pre" checked> &#x2713;
+                                </div>
+                                <div><input class="abs" type="radio" name="7_ab"> ab
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                <div>
+                                    <input type="radio" class="pre text-primary" name="8_pre" checked> &#x2713;
+                                </div>
+                                <div><input class="abs" type="radio" name="8_ab"> ab
+                                </div>
+                            </div>
+                        </td>
+                        <td class="d-flex">
+                            <div class="prechecking pr-2">
+                                <input type="radio" class="pao" name="o_pre" checked onchange="prechecking(this)">Pre
+                            </div>
+                            <div class="abscheck pr-2">
+                                <input type="radio" name="o_abs" class="pao" onchange="abschecking(this)">Abs
+                            </div>
+                            <div class="odcheck pr-2">
+                                <input type="radio" name="o_od" class="pao" onchange="odchecking(this)">Od
+                            </div>
+                            <textarea style="display:none" name="reason" placeholder="Reason"></textarea>
 
-                </tr>
+                        </td>
 
-            </tbody>
-        </table>
-    </div>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </form>
 </div>
+</body>
 <script type="text/javascript">
+
+    // right click event 
+
+    const contextMenu = document.getElementById("context-menu");
+    const scopes = document.querySelectorAll(".abs");
+
+    scopes.forEach((scope) => {
+        scope.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+            var currentTarget = event.currentTarget;
+
+            const { clientX: mouseX, clientY: mouseY } = event;
+
+            contextMenu.style.top = `${mouseY}px`;
+            contextMenu.style.left = `${mouseX}px`;
+
+            contextMenu.classList.add("visible");
+
+            var items = document.querySelectorAll(".item");
+            items[0].addEventListener('click', () => {
+                currentTarget.checked = true;
+                currentTarget.nextSibling.data = ' ab'
+            })
+            items[1].addEventListener('click', () => {
+                currentTarget.checked = true;
+                currentTarget.nextSibling.data = ' Od'
+            })
+
+            var body = document.querySelector("body");
+            body.addEventListener('click', () => {
+                contextMenu.classList.remove("visible");
+
+            });
+        });
+    })
+
+    // Give name for all present Absent radio buttons  
+
+
     const table = document.querySelector('table');
 
     const rows = table.querySelectorAll('tr');
@@ -81,8 +205,6 @@
         tds.forEach((td, indextd) => {
             const name = `p${index}${indextd}`;
 
-
-
             const radioButtons = td.querySelectorAll('input[type="radio"]');
 
             radioButtons.forEach(radioButton => {
@@ -91,16 +213,64 @@
         });
     });
 
-    function checking(that) {
-        var textarea = document.getElementById("msg")
-        if (!that.checked) {
-            textarea.style.display = "block";
+    // presentchecking
+
+    function prechecking(that) {
+        if (that.checked) {
+            var abs = that.parentNode.parentNode.parentNode.querySelectorAll('.abs');
+            var pres = that.parentNode.parentNode.parentNode.querySelectorAll('.pre');
+            var textarea = that.parentNode.parentNode.querySelector("textarea");
+            pres.forEach((pre) => {
+                pre.setAttribute("checked", "checked");
+            })
+            abs.forEach((ab) => {
+                ab.removeAttribute("checked", "checked")
+            })
+            textarea.style.display = "none"
         }
-        else {
-            textarea.style.display = "none";
+
+    }
+    // Absentchecking
+    function abschecking(that) {
+        if (that.checked) {
+            var abs = that.parentNode.parentNode.parentNode.querySelectorAll('.abs');
+            var pres = that.parentNode.parentNode.parentNode.querySelectorAll('.pre');
+            var textarea = that.parentNode.parentNode.querySelector("textarea");
+            textarea.style.display = "block";
+            abs.forEach((ab) => {
+                ab.nextSibling.data = ' ab'
+                ab.setAttribute("checked", "checked")
+            })
+            pres.forEach((pre) => {
+                pre.removeAttribute("checked", "checked");
+            })
 
         }
     }
+    // ODchecking
+    function odchecking(that) {
+        if (that.checked) {
+            var textarea = that.parentNode.parentNode.querySelector("textarea");
+            textarea.style.display = "block";
+            var abs = that.parentNode.parentNode.parentNode.querySelectorAll('.abs');
+            abs.forEach((ab) => {
+                ab.nextSibling.data = ' Od'
+            })
+        }
+    }
+
+    // checking present and absent and od and give the class name
+
+    rows.forEach((row, i) => {
+        var pao = row.querySelectorAll(".pao");
+        let name = `pao${i}`
+        pao.name = name;
+
+    })
+
+
+
+
 </script>
 
 {% endblock %}

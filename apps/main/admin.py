@@ -50,25 +50,13 @@ class TimeTableAdmin(admin.ModelAdmin):
                 dept = 'Mechanical Engineering'
             elif dept == 'Civil':
                 dept = 'Civil Engineering'
-            monday = TimeTable.objects.filter(
-                day="Monday", subject_name__department=dept, subject_name__year=year)
-            tuesday = TimeTable.objects.filter(
-                day="Tuesday", subject_name__department=dept, subject_name__year=year)
-            wednesday = TimeTable.objects.filter(
-                day="Wednesday", subject_name__department=dept, subject_name__year=year)
-            thursday = TimeTable.objects.filter(
-                day="Thursday", subject_name__department=dept, subject_name__year=year)
-            friday = TimeTable.objects.filter(
-                day="Friday", subject_name__department=dept, subject_name__year=year)
+            timetable_data = TimeTable.objects.filter(
+                period_1__department=dept, period_1__year=year)
             sub = Subject.objects.filter(department=dept, year=year)
             extra_context.update({
-                "monday": monday,
-                'tuesday': tuesday,
-                'wednesday': wednesday,
-                'thursday': thursday,
-                'friday': friday,
-                'sub': sub,
-                'values': values
+                'timetable': timetable_data,
+                'values': values,
+                'sub': sub
             })
 
             return super().changelist_view(request, extra_context=extra_context)
@@ -85,6 +73,9 @@ class StudentAttendanceAdmin(admin.ModelAdmin):
         if request.method == 'POST':
             dept = request.POST.get('department')
             year = request.POST.get('year')
+            date = request.POST.get('date')
+            print(dept, year, date)
+
             values = True
             if dept == 'CSE':
                 dept = 'Computer Science and Engineering'
@@ -96,24 +87,13 @@ class StudentAttendanceAdmin(admin.ModelAdmin):
                 dept = 'Mechanical Engineering'
             elif dept == 'Civil':
                 dept = 'Civil Engineering'
-            monday = TimeTable.objects.filter(
-                day="Monday", subject_name__department=dept, subject_name__year=year)
-            tuesday = TimeTable.objects.filter(
-                day="Tuesday", subject_name__department=dept, subject_name__year=year)
-            wednesday = TimeTable.objects.filter(
-                day="Wednesday", subject_name__department=dept, subject_name__year=year)
-            thursday = TimeTable.objects.filter(
-                day="Thursday", subject_name__department=dept, subject_name__year=year)
-            friday = TimeTable.objects.filter(
-                day="Friday", subject_name__department=dept, subject_name__year=year)
+
             sub = Subject.objects.filter(department=dept, year=year)
+            student = Student.objects.filter(Department=dept, year=year)
+            tt = TimeTable.objects.filter(department=dept, year=year)
             extra_context.update({
-                "monday": monday,
-                'tuesday': tuesday,
-                'wednesday': wednesday,
-                'thursday': thursday,
-                'friday': friday,
-                'sub': sub,
+                "sub": sub,
+                "student": student,
                 'values': values
             })
 
