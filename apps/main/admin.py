@@ -18,6 +18,8 @@ class StaffAdmin(ImportExportModelAdmin):
 class StudentResource(resources.ModelResource):
     class Meta:
         model = Student
+    def skip_row(self, instance, original):
+        return True if not instance.name else False
 
 
 class StudentAdmin(ImportExportModelAdmin):

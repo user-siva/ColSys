@@ -45,11 +45,12 @@ class Student(models.Model):
     Batch_name = models.CharField(max_length=20, null=True, blank=True)
     Register = models.IntegerField(null=True, blank=True)
     Roll_no = models.IntegerField(null=True, blank=True)
-    Age = models.IntegerField(null=True)
+    Age = models.IntegerField(null=True, blank=True)
     DOB = models.DateField(null=True, blank=True)
-    Gender = models.CharField(max_length=10, choices=gender_choices, null=True)
+    Gender = models.CharField(
+        max_length=10, choices=gender_choices, null=True, blank=True)
     Blood_group = models.CharField(max_length=5, null=True, blank=True)
-    Department = models.CharField(max_length=200, choices=dept_choices)
+    Department = models.CharField(max_length=200, choices=dept_choices,null=True)
     year = models.CharField(
         max_length=200, default='First', choices=year_choices, null=True)
     Phone = models.IntegerField(null=True)
@@ -94,7 +95,7 @@ class Student(models.Model):
         max_length=30, choices=guardian_choice, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.name or ''
 
 
 employee_choice = [
