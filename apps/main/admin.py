@@ -4,6 +4,7 @@ from .models import *
 from import_export import resources, fields
 from import_export.admin import ImportExportModelAdmin
 from import_export.widgets import Widget
+from datetime import datetime as date_
 
 
 class StaffResource(resources.ModelResource):
@@ -18,8 +19,6 @@ class StaffAdmin(ImportExportModelAdmin):
 class StudentResource(resources.ModelResource):
     class Meta:
         model = Student
-    def skip_row(self, instance, original):
-        return True if not instance.name else False
 
 
 class StudentAdmin(ImportExportModelAdmin):
@@ -41,6 +40,7 @@ class TimeTableAdmin(admin.ModelAdmin):
         if request.method == 'POST':
             dept = request.POST.get('department')
             year = request.POST.get('year')
+            date = request.POST.get('date')
             values = True
             if dept == 'CSE':
                 dept = 'Computer Science and Engineering'
@@ -53,7 +53,7 @@ class TimeTableAdmin(admin.ModelAdmin):
             elif dept == 'Civil':
                 dept = 'Civil Engineering'
             timetable_data = TimeTable.objects.filter(
-                period_1__department=dept, period_1__year=year)
+                period_1__department=dept, period_1__year=year, date=date)
             sub = Subject.objects.filter(department=dept, year=year)
             extra_context.update({
                 'timetable': timetable_data,
@@ -77,8 +77,6 @@ class StudentAttendanceAdmin(admin.ModelAdmin):
             dept = request.POST.get('department')
             year = request.POST.get('year')
             date = request.POST.get('date')
-            print(dept, year, date)
-
             values = True
             if dept == 'CSE':
                 dept = 'Computer Science and Engineering'
@@ -90,14 +88,27 @@ class StudentAttendanceAdmin(admin.ModelAdmin):
                 dept = 'Mechanical Engineering'
             elif dept == 'Civil':
                 dept = 'Civil Engineering'
+            day = date_.today().strftime("%A")
 
             sub = Subject.objects.filter(department=dept, year=year)
             student = Student.objects.filter(Department=dept, year=year)
-            tt = TimeTable.objects.filter(department=dept, year=year)
+            tt = TimeTable.objects.filter(
+                department=dept, year=year, date=date, day='Monday')
+            subname = []
+            for i in tt:
+                subname.append(i.period_1.subject_name)
+                subname.append(i.period_2.subject_name)
+                subname.append(i.period_3.subject_name)
+                subname.append(i.period_4.subject_name)
+                subname.append(i.period_5.subject_name)
+                subname.append(i.period_6.subject_name)
+                subname.append(i.period_7.subject_name)
+                subname.append(i.period_8.subject_name)
             extra_context.update({
                 "sub": sub,
                 "student": student,
-                'values': values
+                'values': values,
+                'subname': subname
             })
 
             return self.changeform_view(request, None, form_url, extra_context)
