@@ -25,7 +25,13 @@ class StudentAdmin(ImportExportModelAdmin):
     resource_classes = [StudentResource]
 
 
-class SubjectAdmin(admin.ModelAdmin):
+class SubjectResource(resources.ModelResource):
+    class Meta:
+        model = Subject
+
+
+class SubjectAdmin(ImportExportModelAdmin):
+    resource_classes = [SubjectResource]
     list_filter = ['department', 'year', 'semester']
     list_display = ['subject_code', 'subject_name',
                     'staff', 'department', 'year', 'semester']
