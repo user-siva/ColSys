@@ -97,7 +97,7 @@ class Student(models.Model):
         max_length=30, choices=guardian_choice, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 employee_choice = [

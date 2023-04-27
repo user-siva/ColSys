@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'apps.main'
 ]
 JAZZMIN_SETTINGS = {
-    "show_ui_builder": True,
     "site_header": "TEC",
 
 }
@@ -90,17 +89,16 @@ DATABASES = {
 }
 
 
-#DATABASES = {
-#   'default': {
-#       'ENGINE': 'django.db.backends.postgresql',
-#       'NAME': 'ERP_DB',
-#       'USER': 'postgres',
-#       'PASSWORD': 'jaihind',
-#       'HOST': 'localhost',
-#       'PORT': '5432',
-#   }
-#}
-
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'ERP_DB',
+#        'USER': 'postgres',
+#        'PASSWORD': 'jaihind',
+#        'HOST': 'localhost',
+#        'PORT': '5432',
+#    }
+# }
 
 
 # Password validation
